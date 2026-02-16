@@ -29,6 +29,12 @@
     clear: both;
 }
 
+/* Hide the "go to section" link on section 0, since navigating to
+   section 0 just reloads the current overview page. */
+#pathway-format-wrapper [data-number="0"] .course-section-header .btn.btn-icon {
+    display: none;
+}
+
 .pathway-wrapper.pathway-sidebar-left {
     flex-direction: row;
 }
