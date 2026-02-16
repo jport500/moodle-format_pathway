@@ -1,0 +1,642 @@
+/* ═══════════════════════════════════════════════════
+   Pathway Course Format - Auto-loaded Styles
+   ═══════════════════════════════════════════════════
+   This file is automatically loaded by Moodle for any
+   course using the Pathway format.
+
+   Note: Moodle concatenates this into its main CSS cache.
+   For development, use styles/pathway.css directly.
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Main Layout ─── */
+
+/* Clear space for Moodle's secondary navigation (Grades | Activities | More)
+   which overlaps content in Boost-based themes for Pathway format courses. */
+.path-course-view #pathway-format-wrapper {
+    margin-top: 50px;
+}
+
+/* Fix secondary nav overlap on non-view course pages (settings, edit, etc.)
+   by adding top padding to the main content region. */
+.format-pathway:not(.path-course-view) #page-content #region-main {
+    padding-top: 50px;
+}
+
+.pathway-wrapper {
+    display: flex;
+    min-height: calc(100vh - 200px);
+    position: relative;
+    clear: both;
+}
+
+.pathway-wrapper.pathway-sidebar-left {
+    flex-direction: row;
+}
+
+.pathway-wrapper.pathway-sidebar-right {
+    flex-direction: row-reverse;
+}
+
+/* ─── Sidebar ─── */
+.pathway-sidebar {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    background: var(--pathway-sidebar-bg, #f8f9fa);
+    border-right: 1px solid var(--pathway-border, #dee2e6);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 180px);
+    transition: width 0.3s ease, min-width 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+}
+
+.pathway-sidebar-right .pathway-sidebar {
+    border-right: none;
+    border-left: 1px solid var(--pathway-border, #dee2e6);
+}
+
+.pathway-sidebar-collapsed .pathway-sidebar {
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    border: none;
+}
+
+/* ─── Sidebar Header ─── */
+.pathway-sidebar-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--pathway-border, #dee2e6);
+    flex-shrink: 0;
+}
+
+.pathway-sidebar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.pathway-sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pathway-muted, #6c757d);
+}
+
+.pathway-sidebar-toggle {
+    color: var(--pathway-muted, #6c757d) !important;
+    text-decoration: none !important;
+    line-height: 1;
+}
+
+.pathway-sidebar-toggle:hover {
+    color: var(--pathway-text, #212529) !important;
+}
+
+/* ─── Expand Button ─── */
+.pathway-expand-btn {
+    position: fixed;
+    top: 130px;
+    z-index: 20;
+    width: 36px;
+    height: 36px;
+    border-radius: 0 8px 8px 0;
+    background: var(--pathway-primary, #0d6efd);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease;
+}
+
+.pathway-sidebar-left .pathway-expand-btn {
+    left: 0;
+}
+
+.pathway-sidebar-right .pathway-expand-btn {
+    right: 0;
+    border-radius: 8px 0 0 8px;
+}
+
+.pathway-expand-btn:hover {
+    background: var(--pathway-primary-hover, #0b5ed7);
+}
+
+/* ─── Overall Progress ─── */
+.pathway-overall-progress {
+    margin-top: 4px;
+}
+
+.pathway-progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--pathway-muted, #6c757d);
+    margin-bottom: 6px;
+}
+
+.pathway-progress-pct {
+    font-weight: 700;
+    color: var(--pathway-primary, #0d6efd);
+    font-variant-numeric: tabular-nums;
+}
+
+.pathway-progress-bar {
+    height: 6px;
+    background: var(--pathway-track, #e9ecef);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.pathway-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--pathway-primary, #0d6efd);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Section List ─── */
+.pathway-section-list {
+    padding: 12px 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.pathway-section-node {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    color: var(--pathway-text-muted, #495057) !important;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.pathway-section-node:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--pathway-text, #212529) !important;
+    text-decoration: none !important;
+}
+
+.pathway-section-node.pathway-section-current {
+    background: var(--pathway-current-bg, rgba(13, 110, 253, 0.08));
+    border-color: var(--pathway-current-border, rgba(13, 110, 253, 0.2));
+    color: var(--pathway-text, #212529) !important;
+}
+
+.pathway-section-node.pathway-section-current .pathway-section-name {
+    font-weight: 600;
+}
+
+/* Section Indicator */
+.pathway-section-indicator {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 2px solid var(--pathway-border, #dee2e6);
+    color: var(--pathway-muted, #6c757d);
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.pathway-section-current .pathway-section-indicator {
+    border-color: var(--pathway-primary, #0d6efd);
+    color: var(--pathway-primary, #0d6efd);
+    background: rgba(13, 110, 253, 0.08);
+}
+
+.pathway-section-complete .pathway-section-indicator {
+    border-color: var(--pathway-success, #198754);
+    color: #fff;
+    background: var(--pathway-success, #198754);
+}
+
+.pathway-check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+.pathway-home-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+.pathway-section-num {
+    font-variant-numeric: tabular-nums;
+}
+
+.pathway-section-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pathway-section-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.35;
+    display: block;
+    word-wrap: break-word;
+}
+
+.pathway-section-complete .pathway-section-name {
+    color: var(--pathway-muted, #6c757d) !important;
+}
+
+/* Section mini progress */
+.pathway-section-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.pathway-section-progress-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--pathway-track, #e9ecef);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.pathway-section-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pathway-section-progress-fill.pathway-progress-complete {
+    background: var(--pathway-success, #198754);
+}
+
+.pathway-section-progress-fill.pathway-progress-partial {
+    background: var(--pathway-primary, #0d6efd);
+}
+
+.pathway-section-progress-text {
+    font-size: 0.65rem;
+    color: var(--pathway-muted, #6c757d);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Connector Lines */
+.pathway-connector {
+    width: 2px;
+    height: 8px;
+    margin-left: 23px;
+    background: var(--pathway-border, #dee2e6);
+    transition: background 0.3s ease;
+}
+
+.pathway-connector.pathway-connector-complete,
+.pathway-connector.pathway-connector-active {
+    background: var(--pathway-success, #198754);
+    opacity: 0.5;
+}
+
+.pathway-section-node:last-of-type + .pathway-connector {
+    display: none;
+}
+
+/* ─── Main Content ─── */
+.pathway-content {
+    flex: 1;
+    min-width: 0;
+    padding: 24px 32px 48px;
+    max-width: 100%;
+}
+
+/* Section Banner Image (content area) */
+.pathway-section-banner {
+    margin: -24px -32px 20px;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    max-height: 240px;
+    background: var(--pathway-sidebar-bg, #f8f9fa);
+}
+
+.pathway-section-banner-img {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Sidebar Section Thumbnail */
+.pathway-section-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.pathway-section-current .pathway-section-thumb {
+    box-shadow: 0 0 0 2px var(--pathway-primary, #0d6efd);
+}
+
+.pathway-section-complete .pathway-section-thumb {
+    opacity: 0.7;
+}
+
+.pathway-content-header {
+    margin-bottom: 16px;
+}
+
+.pathway-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pathway-section-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pathway-primary, #0d6efd);
+    background: rgba(13, 110, 253, 0.08);
+    padding: 3px 12px;
+    border-radius: 20px;
+}
+
+/* ─── Activity Card Styling ─── */
+.pathway-content .course-content .section .activity {
+    background: #fff;
+    border: 1px solid var(--pathway-border, #dee2e6);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.pathway-content .course-content .section .activity:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border-color: rgba(13, 110, 253, 0.3);
+}
+
+/* ─── Bottom Navigation ─── */
+.pathway-nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    margin-top: 32px;
+    border-top: 1px solid var(--pathway-border, #dee2e6);
+}
+
+.pathway-nav-prev,
+.pathway-nav-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+}
+
+.pathway-nav-next {
+    padding: 10px 24px;
+    font-weight: 600;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 991.98px) {
+    .pathway-sidebar {
+        width: 260px;
+        min-width: 260px;
+        max-width: 260px;
+    }
+
+    .pathway-content {
+        padding: 20px 24px 40px;
+    }
+
+    .pathway-section-banner {
+        margin: -20px -24px 16px;
+        max-height: 180px;
+    }
+
+    .pathway-section-banner-img {
+        max-height: 180px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #pathway-format-wrapper {
+        margin-top: 40px;
+    }
+
+    .pathway-wrapper {
+        flex-direction: column !important;
+    }
+
+    /* Sidebar collapses to a compact bar on mobile by default.
+       The AMD module handles auto-collapse via a data attribute. */
+    .pathway-sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: auto;
+        max-height: none;
+        position: relative;
+        border-right: none !important;
+        border-left: none !important;
+        border-bottom: 1px solid var(--pathway-border, #dee2e6);
+        top: 0;
+    }
+
+    /* On mobile, only show the header by default; section list scrolls */
+    .pathway-section-list {
+        max-height: 40vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pathway-sidebar-collapsed .pathway-sidebar {
+        max-height: 0;
+        padding: 0;
+        border-bottom: none;
+        overflow: hidden;
+    }
+
+    .pathway-expand-btn {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: auto;
+        border-radius: 0 0 8px 0;
+        z-index: 2;
+    }
+
+    /* Larger touch targets for section links */
+    .pathway-section-node {
+        padding: 12px 14px;
+        min-height: 48px;
+    }
+
+    .pathway-section-indicator {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+
+    .pathway-section-thumb {
+        width: 32px;
+        height: 32px;
+    }
+
+    .pathway-section-name {
+        font-size: 0.88rem;
+    }
+
+    .pathway-content {
+        padding: 16px 16px 32px;
+    }
+
+    /* Smaller banner on mobile */
+    .pathway-section-banner {
+        margin: -16px -16px 12px;
+        max-height: 140px;
+        border-radius: 0;
+    }
+
+    .pathway-section-banner-img {
+        max-height: 140px;
+    }
+
+    .pathway-content-header {
+        margin-bottom: 12px;
+    }
+
+    /* Stack nav buttons vertically */
+    .pathway-nav-footer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .pathway-nav-prev,
+    .pathway-nav-next {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Sidebar toggle more prominent on mobile */
+    .pathway-sidebar-toggle {
+        padding: 8px !important;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+    #pathway-format-wrapper {
+        margin-top: 35px;
+    }
+
+    .pathway-content {
+        padding: 12px 12px 24px;
+    }
+
+    .pathway-section-banner {
+        margin: -12px -12px 10px;
+        max-height: 120px;
+    }
+
+    .pathway-section-banner-img {
+        max-height: 120px;
+    }
+
+    .pathway-section-badge {
+        font-size: 0.7rem;
+        padding: 2px 10px;
+    }
+
+    .pathway-content .course-content .section .activity {
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+}
+
+/* ─── CSS Custom Properties ─── */
+:root {
+    --pathway-primary: #0d6efd;
+    --pathway-primary-hover: #0b5ed7;
+    --pathway-success: #198754;
+    --pathway-text: #212529;
+    --pathway-text-muted: #495057;
+    --pathway-muted: #6c757d;
+    --pathway-border: #dee2e6;
+    --pathway-track: #e9ecef;
+    --pathway-sidebar-bg: #f8f9fa;
+    --pathway-current-bg: rgba(13, 110, 253, 0.08);
+    --pathway-current-border: rgba(13, 110, 253, 0.2);
+}
+
+/* Dark mode */
+[data-bs-theme="dark"] {
+    --pathway-primary: #6ea8fe;
+    --pathway-primary-hover: #8bb9fe;
+    --pathway-success: #75b798;
+    --pathway-text: #dee2e6;
+    --pathway-text-muted: #adb5bd;
+    --pathway-muted: #6c757d;
+    --pathway-border: #495057;
+    --pathway-track: #343a40;
+    --pathway-sidebar-bg: #212529;
+    --pathway-current-bg: rgba(110, 168, 254, 0.1);
+    --pathway-current-border: rgba(110, 168, 254, 0.25);
+}
+
+[data-bs-theme="dark"] .pathway-content .course-content .section .activity {
+    background: #2b3035;
+    border-color: var(--pathway-border);
+}
+
+[data-bs-theme="dark"] .pathway-section-indicator {
+    background: #2b3035;
+}
+
+/* ─── Print ─── */
+@media print {
+    .pathway-sidebar,
+    .pathway-expand-btn,
+    .pathway-nav-footer,
+    .pathway-sidebar-toggle {
+        display: none !important;
+    }
+
+    .pathway-content {
+        padding: 0;
+    }
+
+    .pathway-wrapper {
+        display: block;
+    }
+}

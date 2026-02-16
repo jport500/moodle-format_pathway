@@ -1,0 +1,213 @@
+{{!
+    @template format_pathway/local/content
+
+    Pathway course format - main content template.
+    Renders the custom sidebar + focused content area layout.
+
+    Classes required for JS:
+    * pathway-wrapper - the main wrapper element
+    * pathway-sidebar - the sidebar progress tracker
+    * pathway-content - the main content area
+
+    Data attributes required for course editor:
+    * data-for="course_format"
+
+    Context variables required for this template:
+    * pathway - Object containing sidebar data, progress, navigation
+    * sections - Array of section output data from core
+    * initialsection - The general/overview section (section 0)
+    * singlesection - Data for single section view
+
+    Example context (json):
+    {
+        "pathway": {
+            "coursename": "Workplace Safety",
+            "sidebarleft": true,
+            "showprogress": true,
+            "overallpct": 45,
+            "overallcomplete": 9,
+            "overalltotal": 20,
+            "hassections": true,
+            "sidebarsections": []
+        }
+    }
+}}
+
+<div data-for="course_format" id="pathway-format-wrapper">
+
+{{! Core course content - section 0 rendered ABOVE the flex layout (when not in sidebar) }}
+{{#pathway.showinitialabove}}
+<div class="pathway-initial-section">
+    {{#initialsection}}
+        {{> core_courseformat/local/content/section}}
+    {{/initialsection}}
+</div>
+{{/pathway.showinitialabove}}
+
+{{! ─── Flex layout: Sidebar + Content ─── }}
+<div class="pathway-wrapper {{#pathway.sidebarleft}}pathway-sidebar-left{{/pathway.sidebarleft}}{{#pathway.sidebarright}}pathway-sidebar-right{{/pathway.sidebarright}}"
+     id="pathway-wrapper">
+
+    {{! ─── Sidebar Progress Tracker ─── }}
+    <aside class="pathway-sidebar" id="pathway-sidebar" aria-label="{{#str}}courseoutline, format_pathway{{/str}}">
+
+        {{! Sidebar Header }}
+        <div class="pathway-sidebar-header">
+            <div class="pathway-sidebar-title">
+                <span class="pathway-sidebar-label">{{#str}}courseoutline, format_pathway{{/str}}</span>
+                <button class="pathway-sidebar-toggle btn btn-link p-0" id="pathway-sidebar-toggle"
+                        aria-label="{{#str}}collapsesidebar, format_pathway{{/str}}"
+                        title="{{#str}}collapsesidebar, format_pathway{{/str}}">
+                    <i class="icon fa fa-chevron-left fa-fw" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            {{#pathway.showprogress}}
+            {{#pathway.completionenabled}}
+            <div class="pathway-overall-progress">
+                <div class="pathway-progress-label">
+                    <span>{{#str}}overallprogress, format_pathway{{/str}}</span>
+                    <span class="pathway-progress-pct">{{pathway.overallpct}}%</span>
+                </div>
+                <div class="pathway-progress-bar" role="progressbar"
+                     aria-valuenow="{{pathway.overallpct}}" aria-valuemin="0" aria-valuemax="100">
+                    <div class="pathway-progress-fill {{#pathway.overallpct}}pathway-progress-active{{/pathway.overallpct}}"
+                         style="width: {{pathway.overallpct}}%"></div>
+                </div>
+            </div>
+            {{/pathway.completionenabled}}
+            {{/pathway.showprogress}}
+        </div>
+
+        {{! Section List }}
+        <nav class="pathway-section-list" aria-label="{{#str}}courseoutline, format_pathway{{/str}}">
+            {{#pathway.sidebarsections}}
+            <a href="{{{url}}}"
+               class="pathway-section-node {{#iscurrent}}pathway-section-current{{/iscurrent}} {{#iscomplete}}pathway-section-complete{{/iscomplete}} {{#isinprogress}}pathway-section-inprogress{{/isinprogress}}"
+               {{#iscurrent}}aria-current="true"{{/iscurrent}}>
+
+                {{! Status indicator }}
+                <div class="pathway-section-indicator">
+                    {{#hasimage}}
+                        <img src="{{{imageurl}}}" alt="" class="pathway-section-thumb"
+                             aria-hidden="true" loading="lazy" />
+                    {{/hasimage}}
+                    {{^hasimage}}
+                        {{#iscomplete}}
+                            <span class="pathway-check-icon">
+                                <i class="icon fa fa-check fa-fw" aria-hidden="true"></i>
+                            </span>
+                        {{/iscomplete}}
+                        {{^iscomplete}}
+                            {{#issection0}}
+                                <span class="pathway-home-icon">
+                                    <i class="icon fa fa-home fa-fw" aria-hidden="true"></i>
+                                </span>
+                            {{/issection0}}
+                            {{^issection0}}
+                                <span class="pathway-section-num">{{num}}</span>
+                            {{/issection0}}
+                        {{/iscomplete}}
+                    {{/hasimage}}
+                </div>
+
+                {{! Section info }}
+                <div class="pathway-section-info">
+                    <span class="pathway-section-name">{{name}}</span>
+
+                    {{#pathway.showprogress}}
+                    {{#hastrackeditems}}
+                    <div class="pathway-section-progress">
+                        <div class="pathway-section-progress-bar" role="progressbar"
+                             aria-valuenow="{{progresspct}}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="pathway-section-progress-fill
+                                        {{#iscomplete}}pathway-progress-complete{{/iscomplete}}
+                                        {{#isinprogress}}pathway-progress-partial{{/isinprogress}}"
+                                 style="width: {{progresspct}}%"></div>
+                        </div>
+                        <span class="pathway-section-progress-text">{{completedcount}}/{{totalcount}}</span>
+                    </div>
+                    {{/hastrackeditems}}
+                    {{/pathway.showprogress}}
+                </div>
+            </a>
+
+            {{! Connector line between sections }}
+            <div class="pathway-connector {{#iscomplete}}pathway-connector-complete{{/iscomplete}} {{#isinprogress}}pathway-connector-active{{/isinprogress}}"></div>
+            {{/pathway.sidebarsections}}
+        </nav>
+    </aside>
+
+    {{! ─── Collapsed Sidebar Toggle ─── }}
+    <button class="pathway-expand-btn" id="pathway-expand-btn"
+            aria-label="{{#str}}expandsidebar, format_pathway{{/str}}"
+            title="{{#str}}expandsidebar, format_pathway{{/str}}"
+            style="display:none;">
+        <i class="icon fa fa-bars fa-fw" aria-hidden="true"></i>
+    </button>
+
+    {{! ─── Main Content Area ─── }}
+    <div class="pathway-content" id="pathway-content" role="main">
+
+        {{! Section banner image }}
+        {{#pathway.hascurrentsectionimage}}
+        <div class="pathway-section-banner">
+            <img src="{{{pathway.currentsectionimage}}}" alt="" class="pathway-section-banner-img" />
+        </div>
+        {{/pathway.hascurrentsectionimage}}
+
+        {{! Section header with progress badge }}
+        {{#pathway.currentsectionnum}}
+        <div class="pathway-content-header">
+            <div class="pathway-breadcrumb">
+                <span class="pathway-section-badge">
+                    {{#str}}sectionname, format_pathway{{/str}} {{pathway.currentsectionnum}}
+                    {{#pathway.totalsections}} / {{pathway.totalsections}}{{/pathway.totalsections}}
+                </span>
+            </div>
+        </div>
+        {{/pathway.currentsectionnum}}
+
+        {{! Core course content - sections rendered by Moodle core }}
+        <div class="pathway-sections-wrapper" data-for="course_sectionlist">
+            {{! Section 0 content when navigated to in sidebar mode }}
+            {{#pathway.section0insidebar}}
+            {{#initialsection}}
+                {{> core_courseformat/local/content/section}}
+            {{/initialsection}}
+            {{/pathway.section0insidebar}}
+
+            {{! Course sections }}
+            {{#sections}}
+                {{> core_courseformat/local/content/section}}
+            {{/sections}}
+
+            {{#singlesection}}
+                {{> core_courseformat/local/content/section}}
+            {{/singlesection}}
+        </div>
+
+        {{! Bottom navigation }}
+        {{#pathway.currentsectionnum}}
+        <div class="pathway-nav-footer">
+            {{#pathway.hasprevsection}}
+            <a href="{{{pathway.prevsection.url}}}" class="pathway-nav-prev btn btn-outline-secondary">
+                <i class="icon fa fa-arrow-left fa-fw" aria-hidden="true"></i>
+                <span>{{#str}}previoussection, format_pathway{{/str}}</span>
+            </a>
+            {{/pathway.hasprevsection}}
+            {{^pathway.hasprevsection}}
+            <div></div>
+            {{/pathway.hasprevsection}}
+
+            {{#pathway.hasnextsection}}
+            <a href="{{{pathway.nextsection.url}}}" class="pathway-nav-next btn btn-primary">
+                <span>{{#str}}nextsection, format_pathway{{/str}}</span>
+                <i class="icon fa fa-arrow-right fa-fw" aria-hidden="true"></i>
+            </a>
+            {{/pathway.hasnextsection}}
+        </div>
+        {{/pathway.currentsectionnum}}
+    </div>
+</div>
+</div>
