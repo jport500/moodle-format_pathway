@@ -245,6 +245,10 @@
     font-size: 0.75rem;
 }
 
+.pathway-home-icon .icon {
+    margin: 0;
+}
+
 .pathway-section-num {
     font-variant-numeric: tabular-nums;
 }
