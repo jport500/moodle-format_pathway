@@ -163,7 +163,10 @@ class content extends content_base {
                 continue;
             }
 
-            $totalsections++;
+            // Section 0 is included in the sidebar but not in the numbered section count.
+            if ($section->section > 0) {
+                $totalsections++;
+            }
 
             [$sectioncomplete, $sectiontotal] = $this->calculate_section_completion(
                 $modinfo, $completioninfo, $section
