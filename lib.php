@@ -213,29 +213,31 @@ class format_pathway extends core_courseformat\base {
         static $courseformatoptions = false;
 
         if ($courseformatoptions === false) {
+            $cfgcoursedisplay = get_config('format_pathway', 'coursedisplay');
+            $cfgsidebar = get_config('format_pathway', 'pathwaysidebar');
+            $cfgshowprogress = get_config('format_pathway', 'pathwayshowprogress');
+            $cfgshowimages = get_config('format_pathway', 'pathwayshowimages');
+            $cfgshowsection0 = get_config('format_pathway', 'pathwayshowsection0');
+
             $courseformatoptions = [
                 'coursedisplay' => [
-                    'default' => get_config('format_pathway', 'coursedisplay') ?? COURSE_DISPLAY_MULTIPAGE,
+                    'default' => ($cfgcoursedisplay !== false) ? (int)$cfgcoursedisplay : COURSE_DISPLAY_MULTIPAGE,
                     'type' => PARAM_INT,
                 ],
                 'pathwaysidebar' => [
-                    'default' => get_config('format_pathway', 'pathwaysidebar') ?: 'left',
+                    'default' => ($cfgsidebar !== false && $cfgsidebar !== '') ? $cfgsidebar : 'left',
                     'type' => PARAM_ALPHA,
                 ],
                 'pathwayshowprogress' => [
-                    'default' => get_config('format_pathway', 'pathwayshowprogress') ?? 1,
+                    'default' => ($cfgshowprogress !== false) ? (int)$cfgshowprogress : 1,
                     'type' => PARAM_INT,
                 ],
                 'pathwayshowimages' => [
-                    'default' => get_config('format_pathway', 'pathwayshowimages') ?? 1,
+                    'default' => ($cfgshowimages !== false) ? (int)$cfgshowimages : 1,
                     'type' => PARAM_INT,
                 ],
                 'pathwayshowsection0' => [
-                    'default' => get_config('format_pathway', 'pathwayshowsection0') ?? 0,
-                    'type' => PARAM_INT,
-                ],
-                'pathwayshowsection0' => [
-                    'default' => get_config('format_pathway', 'pathwayshowsection0') ?? 0,
+                    'default' => ($cfgshowsection0 !== false) ? (int)$cfgshowsection0 : 0,
                     'type' => PARAM_INT,
                 ],
             ];

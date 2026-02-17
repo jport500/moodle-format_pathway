@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025021532;
+$plugin->version = 2025021533;
 $plugin->requires = 2025041400; // Moodle 5.0+.
 $plugin->supported = [500, 501];
 $plugin->component = 'format_pathway';
