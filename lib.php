@@ -213,7 +213,7 @@ class format_pathway extends core_courseformat\base {
         static $courseformatoptions = false;
 
         if ($courseformatoptions === false) {
-            $cfgcoursedisplay = get_config('format_pathway', 'coursedisplay');
+            $courseconfig = get_config('moodlecourse');
             $cfgsidebar = get_config('format_pathway', 'pathwaysidebar');
             $cfgshowprogress = get_config('format_pathway', 'pathwayshowprogress');
             $cfgshowimages = get_config('format_pathway', 'pathwayshowimages');
@@ -221,7 +221,7 @@ class format_pathway extends core_courseformat\base {
 
             $courseformatoptions = [
                 'coursedisplay' => [
-                    'default' => ($cfgcoursedisplay !== false) ? (int)$cfgcoursedisplay : COURSE_DISPLAY_MULTIPAGE,
+                    'default' => $courseconfig->coursedisplay ?? COURSE_DISPLAY_MULTIPAGE,
                     'type' => PARAM_INT,
                 ],
                 'pathwaysidebar' => [
@@ -309,6 +309,42 @@ class format_pathway extends core_courseformat\base {
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
+    }
+
+    /**
+     * Updates course format options when course settings are saved.
+     *
+     * When a course switches to Pathway from another format, the shared
+     * 'coursedisplay' option carries over its old value. We force our
+     * configured default so Pathway courses start with the correct layout.
+     *
+     * @param \stdClass|array $data Form data or array of options.
+     * @param \stdClass|null $oldcourse Previous course data (null if new course).
+     * @return bool Whether options were updated.
+     */
+    public function update_course_format_options($data, $oldcourse = null): bool {
+        if ($oldcourse !== null) {
+            $oldformat = '';
+            if (is_object($oldcourse)) {
+                $oldformat = $oldcourse->format ?? '';
+            } else if (is_array($oldcourse)) {
+                $oldformat = $oldcourse['format'] ?? '';
+            }
+            if ($oldformat !== '' && $oldformat !== 'pathway') {
+                // Switching to Pathway — force our defaults for Pathway-specific options.
+                // Skip 'coursedisplay' as it's managed by Moodle's core course defaults.
+                $data = (object)(array)$data;
+                $options = $this->course_format_options();
+                foreach ($options as $key => $config) {
+                    if ($key === 'coursedisplay') {
+                        continue;
+                    }
+                    $data->$key = $config['default'];
+                }
+            }
+        }
+
+        return parent::update_course_format_options($data, $oldcourse);
     }
 
     /**

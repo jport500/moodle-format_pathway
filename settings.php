@@ -29,18 +29,6 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
 
-    // Course layout default.
-    $settings->add(new admin_setting_configselect(
-        'format_pathway/coursedisplay',
-        new lang_string('courselayout', 'format_pathway'),
-        new lang_string('courselayout_help', 'format_pathway'),
-        COURSE_DISPLAY_MULTIPAGE,
-        [
-            COURSE_DISPLAY_MULTIPAGE => new lang_string('onesectionperpage', 'format_pathway'),
-            COURSE_DISPLAY_SINGLEPAGE => new lang_string('allsectionsonepage', 'format_pathway'),
-        ]
-    ));
-
     // Sidebar position default.
     $settings->add(new admin_setting_configselect(
         'format_pathway/pathwaysidebar',

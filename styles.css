@@ -336,13 +336,13 @@
 .pathway-content {
     flex: 1;
     min-width: 0;
-    padding: 24px 32px 48px;
+    padding: 0 32px 48px;
     max-width: 100%;
 }
 
 /* Section Banner Image (content area) */
 .pathway-section-banner {
-    margin: -24px -32px 20px;
+    margin: 0 -32px 20px;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
     max-height: 240px;
@@ -446,11 +446,11 @@
     }
 
     .pathway-content {
-        padding: 20px 24px 40px;
+        padding: 0 24px 40px;
     }
 
     .pathway-section-banner {
-        margin: -20px -24px 16px;
+        margin: 0 -24px 16px;
         max-height: 180px;
     }
 
@@ -528,12 +528,12 @@
     }
 
     .pathway-content {
-        padding: 16px 16px 32px;
+        padding: 0 16px 32px;
     }
 
     /* Smaller banner on mobile */
     .pathway-section-banner {
-        margin: -16px -16px 12px;
+        margin: 0 -16px 12px;
         max-height: 140px;
         border-radius: 0;
     }
@@ -571,11 +571,11 @@
     }
 
     .pathway-content {
-        padding: 12px 12px 24px;
+        padding: 0 12px 24px;
     }
 
     .pathway-section-banner {
-        margin: -12px -12px 10px;
+        margin: 0 -12px 10px;
         max-height: 120px;
     }
 
