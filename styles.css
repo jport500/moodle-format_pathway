@@ -109,7 +109,7 @@
 /* ─── Expand Button ─── */
 .pathway-expand-btn {
     position: fixed;
-    top: 130px;
+    top: 300px;
     z-index: 20;
     width: 36px;
     height: 36px;
@@ -461,7 +461,7 @@
 
 @media (max-width: 767.98px) {
     #pathway-format-wrapper {
-        margin-top: 40px;
+        margin-top: 0 !important;
     }
 
     .pathway-wrapper {
@@ -502,8 +502,16 @@
         top: 0;
         left: 0;
         right: auto;
-        border-radius: 0 0 8px 0;
+        border-radius: 0 8px 8px 0;
         z-index: 2;
+    }
+
+    /* When sidebar is on the right, button still on left edge on mobile
+       since sidebar is fully collapsed and off-screen. */
+    .pathway-sidebar-right .pathway-expand-btn {
+        left: 0;
+        right: auto;
+        border-radius: 0 8px 8px 0;
     }
 
     /* Larger touch targets for section links */
@@ -543,6 +551,7 @@
     }
 
     .pathway-content-header {
+        margin-top: 12px;
         margin-bottom: 12px;
     }
 
@@ -567,7 +576,7 @@
 /* Small phones */
 @media (max-width: 480px) {
     #pathway-format-wrapper {
-        margin-top: 35px;
+        margin-top: 0 !important;
     }
 
     .pathway-content {
