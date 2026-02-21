@@ -65,18 +65,6 @@ if ($ADMIN->fulltree) {
         ]
     ));
 
-    // Show section 0 in sidebar default.
-    $settings->add(new admin_setting_configselect(
-        'format_pathway/pathwayshowsection0',
-        new lang_string('showsection0', 'format_pathway'),
-        new lang_string('showsection0_help', 'format_pathway'),
-        0,
-        [
-            1 => new lang_string('yes'),
-            0 => new lang_string('no'),
-        ]
-    ));
-
     // Include overview (section 0) in sidebar default.
     $settings->add(new admin_setting_configselect(
         'format_pathway/pathwayshowsection0',

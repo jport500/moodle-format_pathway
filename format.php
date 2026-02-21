@@ -32,8 +32,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir . '/completionlib.php');
-
 use format_pathway\local\completion_helper;
 
 // Retrieve course format option fields and add them to the $course object.

@@ -394,21 +394,6 @@ class format_pathway extends core_courseformat\base {
     }
 
     /**
-     * Add a file picker to the section edit form for header images.
-     *
-     * This is intentionally empty — the file manager is added via
-     * section_format_options() above. We override this to avoid
-     * the parent adding duplicate elements.
-     *
-     * @param \MoodleQuickForm $mform The section edit form.
-     * @param bool $forsection Whether this is for a section (true) or course (false).
-     * @return array Array of added element names.
-     */
-    public function create_edit_form_elements(&$mform, $forsection = false): array {
-        return parent::create_edit_form_elements($mform, $forsection);
-    }
-
-    /**
      * Validate and process format options, including file uploads.
      *
      * This is called with the raw form data before it's filtered and stored.
@@ -490,16 +475,6 @@ class format_pathway extends core_courseformat\base {
             BLOCK_POS_LEFT => [],
             BLOCK_POS_RIGHT => [],
         ];
-    }
-
-    /**
-     * Whether this format allows to delete sections.
-     *
-     * @param int|stdClass|section_info $section
-     * @return bool
-     */
-    public function can_delete_section_info($section): bool {
-        return true;
     }
 
     /**
