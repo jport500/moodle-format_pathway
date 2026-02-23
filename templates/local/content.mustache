@@ -1,4 +1,20 @@
 {{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
     @template format_pathway/local/content
 
     Pathway course format - main content template.
@@ -44,11 +60,11 @@
 </div>
 {{/pathway.showinitialabove}}
 
-{{! ─── Flex layout: Sidebar + Content ─── }}
+{{!  Flex layout: Sidebar + Content  }}
 <div class="pathway-wrapper {{#pathway.sidebarleft}}pathway-sidebar-left{{/pathway.sidebarleft}}{{#pathway.sidebarright}}pathway-sidebar-right{{/pathway.sidebarright}}"
      id="pathway-wrapper">
 
-    {{! ─── Sidebar Progress Tracker ─── }}
+    {{!  Sidebar Progress Tracker  }}
     <aside class="pathway-sidebar" id="pathway-sidebar" aria-label="{{#str}}courseoutline, format_pathway{{/str}}">
 
         {{! Sidebar Header }}
@@ -138,7 +154,7 @@
         </nav>
     </aside>
 
-    {{! ─── Collapsed Sidebar Toggle ─── }}
+    {{!  Collapsed Sidebar Toggle  }}
     <button class="pathway-expand-btn" id="pathway-expand-btn"
             aria-label="{{#str}}expandsidebar, format_pathway{{/str}}"
             title="{{#str}}expandsidebar, format_pathway{{/str}}"
@@ -146,7 +162,7 @@
         <i class="icon fa fa-bars fa-fw" aria-hidden="true"></i>
     </button>
 
-    {{! ─── Main Content Area ─── }}
+    {{!  Main Content Area  }}
     <div class="pathway-content" id="pathway-content" role="main">
 
         {{! Section banner image }}

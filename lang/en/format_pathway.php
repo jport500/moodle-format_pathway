@@ -75,4 +75,5 @@ $string['sectionimage'] = 'Section header image';
 $string['sectionimage_help'] = 'Upload an image to display as a banner at the top of this section and as a thumbnail in the sidebar. Recommended size: 1200x300px. Supported formats: JPG, PNG, GIF, WebP.';
 
 // Privacy.
-$string['privacy:metadata'] = 'The Pathway format plugin does not store any personal data.';
+$string['privacy:metadata'] = 'The Pathway format plugin does not store any personal data beyond a user preference for sidebar state.';
+$string['privacy:metadata:preference:sidebar_collapsed'] = 'Whether the user has collapsed the course outline sidebar.';

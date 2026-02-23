@@ -331,7 +331,7 @@ class format_pathway extends core_courseformat\base {
                 $oldformat = $oldcourse['format'] ?? '';
             }
             if ($oldformat !== '' && $oldformat !== 'pathway') {
-                // Switching to Pathway — force our defaults for Pathway-specific options.
+                // Switching to Pathway - force our defaults for Pathway-specific options.
                 // Skip 'coursedisplay' as it's managed by Moodle's core course defaults.
                 $data = (object)(array)$data;
                 $options = $this->course_format_options();

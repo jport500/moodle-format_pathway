@@ -1,14 +1,32 @@
-/* ═══════════════════════════════════════════════════
-   Pathway Course Format - Auto-loaded Styles
-   ═══════════════════════════════════════════════════
-   This file is automatically loaded by Moodle for any
-   course using the Pathway format.
+/**
+ * This file is part of Moodle - http://moodle.org/
+ *
+ * Moodle is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Moodle is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-   Note: Moodle concatenates this into its main CSS cache.
-   For development, use styles/pathway.css directly.
-   ═══════════════════════════════════════════════════ */
+/**
+ * Styles for the Pathway course format.
+ *
+ * Auto-loaded by Moodle for any course using the Pathway format.
+ * Moodle concatenates this into its main CSS cache.
+ *
+ * @package   format_pathway
+ * @copyright 2025 Your Company
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-/* ─── Main Layout ─── */
+/* Main Layout */
 
 /* Clear space for Moodle's secondary navigation (Grades | Activities | More)
    which overlaps content in Boost-based themes for Pathway format courses. */
@@ -43,7 +61,7 @@
     flex-direction: row-reverse;
 }
 
-/* ─── Sidebar ─── */
+/*  Sidebar  */
 .pathway-sidebar {
     width: 300px;
     min-width: 300px;
@@ -74,7 +92,7 @@
     border: none;
 }
 
-/* ─── Sidebar Header ─── */
+/*  Sidebar Header  */
 .pathway-sidebar-header {
     padding: 16px 16px 12px;
     border-bottom: 1px solid var(--pathway-border, #dee2e6);
@@ -106,7 +124,7 @@
     color: var(--pathway-text, #212529) !important;
 }
 
-/* ─── Expand Button ─── */
+/*  Expand Button  */
 .pathway-expand-btn {
     position: fixed;
     top: 300px;
@@ -138,7 +156,7 @@
     background: var(--pathway-primary-hover, #0b5ed7);
 }
 
-/* ─── Overall Progress ─── */
+/*  Overall Progress  */
 .pathway-overall-progress {
     margin-top: 4px;
 }
@@ -172,7 +190,7 @@
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── Section List ─── */
+/*  Section List  */
 .pathway-section-list {
     padding: 12px 10px;
     flex: 1;
@@ -332,7 +350,7 @@
     display: none;
 }
 
-/* ─── Main Content ─── */
+/*  Main Content  */
 .pathway-content {
     flex: 1;
     min-width: 0;
@@ -396,7 +414,7 @@
     border-radius: 20px;
 }
 
-/* ─── Activity Card Styling ─── */
+/*  Activity Card Styling  */
 .pathway-content .course-content .section .activity {
     background: #fff;
     border: 1px solid var(--pathway-border, #dee2e6);
@@ -412,7 +430,7 @@
     border-color: rgba(13, 110, 253, 0.3);
 }
 
-/* ─── Bottom Navigation ─── */
+/*  Bottom Navigation  */
 .pathway-nav-footer {
     display: flex;
     justify-content: space-between;
@@ -437,7 +455,7 @@
     font-weight: 600;
 }
 
-/* ─── Responsive ─── */
+/*  Responsive  */
 @media (max-width: 991.98px) {
     .pathway-sidebar {
         width: 260px;
@@ -603,7 +621,7 @@
     }
 }
 
-/* ─── CSS Custom Properties ─── */
+/*  CSS Custom Properties  */
 :root {
     --pathway-primary: #0d6efd;
     --pathway-primary-hover: #0b5ed7;
@@ -642,7 +660,7 @@
     background: #2b3035;
 }
 
-/* ─── Print ─── */
+/*  Print  */
 @media print {
     .pathway-sidebar,
     .pathway-expand-btn,
