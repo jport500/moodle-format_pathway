@@ -191,7 +191,9 @@ class format_pathway extends core_courseformat\base {
                 $usercoursedisplay = COURSE_DISPLAY_MULTIPAGE;
             }
 
-            if ($sectionno != 0 && $usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+            if ($usercoursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+                // In Pathway format, all sections including section 0 use
+                // the section parameter for focused single-section display.
                 $url->param('section', $sectionno);
             } else {
                 if (empty($CFG->linkcoursesections) && !empty($options['navigation'])) {

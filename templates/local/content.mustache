@@ -30,9 +30,10 @@
 
     Context variables required for this template:
     * pathway - Object containing sidebar data, progress, navigation
-    * sections - Array of section output data from core
-    * initialsection - The general/overview section (section 0)
+    * sections - Array of section output data from core (includes section 0)
     * singlesection - Data for single section view
+    * addsection - Pre-rendered add section button HTML (editing mode)
+    * bulkedittools - Pre-rendered bulk edit tools HTML (editing mode)
 
     Example context (json):
     {
@@ -51,14 +52,7 @@
 
 <div data-for="course_format" id="pathway-format-wrapper">
 
-{{! Core course content - section 0 rendered ABOVE the flex layout (when not in sidebar) }}
-{{#pathway.showinitialabove}}
-<div class="pathway-initial-section">
-    {{#initialsection}}
-        {{> core_courseformat/local/content/section}}
-    {{/initialsection}}
-</div>
-{{/pathway.showinitialabove}}
+{{! Core course content - section 0 is included in the sections array in Moodle 5.1+ }}
 
 {{!  Flex layout: Sidebar + Content  }}
 <div class="pathway-wrapper {{#pathway.sidebarleft}}pathway-sidebar-left{{/pathway.sidebarleft}}{{#pathway.sidebarright}}pathway-sidebar-right{{/pathway.sidebarright}}"
@@ -186,14 +180,7 @@
 
         {{! Core course content - sections rendered by Moodle core }}
         <div class="pathway-sections-wrapper" data-for="course_sectionlist">
-            {{! Section 0 content when navigated to in sidebar mode }}
-            {{#pathway.section0insidebar}}
-            {{#initialsection}}
-                {{> core_courseformat/local/content/section}}
-            {{/initialsection}}
-            {{/pathway.section0insidebar}}
-
-            {{! Course sections }}
+            {{! Course sections (includes section 0 in Moodle 5.1+) }}
             {{#sections}}
                 {{> core_courseformat/local/content/section}}
             {{/sections}}
@@ -203,8 +190,14 @@
             {{/singlesection}}
         </div>
 
+        {{! Add section button (editing mode) }}
+        {{{addsection}}}
+
+        {{! Bulk edit tools (editing mode) }}
+        {{{bulkedittools}}}
+
         {{! Bottom navigation }}
-        {{#pathway.currentsectionnum}}
+        {{#pathway.shownavfooter}}
         <div class="pathway-nav-footer">
             {{#pathway.hasprevsection}}
             <a href="{{{pathway.prevsection.url}}}" class="pathway-nav-prev btn btn-outline-secondary">
@@ -223,7 +216,7 @@
             </a>
             {{/pathway.hasnextsection}}
         </div>
-        {{/pathway.currentsectionnum}}
+        {{/pathway.shownavfooter}}
     </div>
 </div>
 </div>

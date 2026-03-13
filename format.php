@@ -20,10 +20,9 @@
  * Included by /course/view.php. Variables $course, $PAGE, $displaysection
  * are already available from the including script.
  *
- * When a learner visits the course without a specific section selected,
- * this script auto-redirects them to the first section with incomplete
- * activities (or section 1 if completion is not enabled / all complete).
- * Teachers/editors see the overview landing page instead.
+ * When no section is specified in the URL, all users (including students)
+ * land on section 0 (Overview). When a section parameter is present,
+ * the specified section is displayed in focused single-section view.
  *
  * @package   format_pathway
  * @copyright 2025 Your Company
@@ -42,23 +41,16 @@ $context = context_course::instance($course->id);
 // Make sure section 0 is created.
 course_create_sections_if_missing($course, 0);
 
-// Auto-redirect logic: when no section is specified in the URL and the user
-// is a learner (not editing), redirect to the first incomplete section.
-if (empty($displaysection) && !$PAGE->user_is_editing()) {
-    if (!has_capability('moodle/course:update', $context)) {
-        $targetsection = completion_helper::get_learner_target_section($course);
-        if ($targetsection !== null) {
-            $url = $format->get_view_url($targetsection);
-            if ($url) {
-                redirect($url);
-            }
-        }
-    }
-}
-
-// Setup the format base instance for the current section.
-if (!empty($displaysection)) {
+// Determine which section to display.
+// When a section parameter is in the URL, display that section in focused view.
+// When no section is specified:
+//   - Editors see the all-sections summary card overview (no set_sectionnum call).
+//   - Non-editors see section 0 in focused view with Continue button.
+$sectionparam = optional_param('section', null, PARAM_INT);
+if ($sectionparam !== null) {
     $format->set_sectionnum($displaysection);
+} else if (!$PAGE->user_is_editing() && !has_capability('moodle/course:update', $context)) {
+    $format->set_sectionnum(0);
 }
 
 // Load the sidebar AMD module.

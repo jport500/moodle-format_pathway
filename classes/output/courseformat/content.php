@@ -101,6 +101,10 @@ class content extends content_base {
             $currentsectionimage = $sectionimages[$sectionid] ?? null;
         }
 
+        // Show nav footer when viewing any single section (including section 0)
+        // and there is at least a prev or next section to navigate to.
+        $shownavfooter = (!empty($prevsection) || !empty($nextsection));
+
         $data->pathway = [
             'coursename' => format_string($course->fullname),
             'courseshortname' => format_string($course->shortname),
@@ -115,6 +119,7 @@ class content extends content_base {
             'totalsections' => $totalsections,
             'currentsectionnum' => $displaysection,
             'hassections' => ($totalsections > 0),
+            'shownavfooter' => $shownavfooter,
             'hasprevsection' => !empty($prevsection),
             'prevsection' => $prevsection,
             'hasnextsection' => !empty($nextsection),
@@ -125,6 +130,39 @@ class content extends content_base {
             'section0insidebar' => $showsection0insidebar,
             'showinitialabove' => !$showsection0insidebar,
         ];
+
+        // Pre-render addsection and bulkedittools for the template.
+        // The parent may not provide addsection in all view modes, so
+        // we create it explicitly when the user is editing.
+        if (empty($data->addsection) && $format->show_editor()) {
+            $addsectionclass = $format->get_output_classname('content\\addsection');
+            $addsection = new $addsectionclass($format);
+            $data->addsection = $output->render($addsection);
+        } else if (isset($data->addsection)) {
+            if (is_object($data->addsection) && $data->addsection instanceof \renderable) {
+                $data->addsection = $output->render($data->addsection);
+            } else if (is_object($data->addsection)) {
+                $data->addsection = $output->render_from_template(
+                    'core_courseformat/local/content/addsection',
+                    $data->addsection
+                );
+            }
+        }
+
+        if (empty($data->bulkedittools) && $format->show_editor()) {
+            $bulkedittoolsclass = $format->get_output_classname('content\\bulkedittools');
+            $bulkedittools = new $bulkedittoolsclass($format);
+            $data->bulkedittools = $output->render($bulkedittools);
+        } else if (isset($data->bulkedittools)) {
+            if (is_object($data->bulkedittools) && $data->bulkedittools instanceof \renderable) {
+                $data->bulkedittools = $output->render($data->bulkedittools);
+            } else if (is_object($data->bulkedittools)) {
+                $data->bulkedittools = $output->render_from_template(
+                    'core_courseformat/local/content/bulkedittools',
+                    $data->bulkedittools
+                );
+            }
+        }
 
         return $data;
     }
@@ -258,11 +296,11 @@ class content extends content_base {
         $prevsection = null;
         $nextsection = null;
 
-        if ($displaysection <= 0) {
+        if ($displaysection < 0) {
             return [$prevsection, $nextsection];
         }
 
-        // Previous section: scan backwards from current.
+        // Previous section: scan backwards from current (section 0 has no previous).
         for ($i = $displaysection - 1; $i >= 1; $i--) {
             if (isset($sections[$i]) && $sections[$i]->uservisible) {
                 $url = $format->get_view_url($sections[$i]);
