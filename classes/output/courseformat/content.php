@@ -96,7 +96,7 @@ class content extends content_base {
 
         // Get the current section's image for the content area banner.
         $currentsectionimage = null;
-        if ($showimages && $displaysection > 0 && isset($sections[$displaysection])) {
+        if ($showimages && $displaysection >= 0 && isset($sections[$displaysection])) {
             $sectionid = $sections[$displaysection]->id;
             $currentsectionimage = $sectionimages[$sectionid] ?? null;
         }

@@ -98,27 +98,21 @@
 
                 {{! Status indicator }}
                 <div class="pathway-section-indicator">
-                    {{#hasimage}}
-                        <img src="{{{imageurl}}}" alt="" class="pathway-section-thumb"
-                             aria-hidden="true" loading="lazy" />
-                    {{/hasimage}}
-                    {{^hasimage}}
-                        {{#iscomplete}}
-                            <span class="pathway-check-icon">
-                                <i class="icon fa fa-check fa-fw" aria-hidden="true"></i>
+                    {{#iscomplete}}
+                        <span class="pathway-check-icon">
+                            <i class="icon fa fa-check fa-fw" aria-hidden="true"></i>
+                        </span>
+                    {{/iscomplete}}
+                    {{^iscomplete}}
+                        {{#issection0}}
+                            <span class="pathway-home-icon">
+                                <i class="icon fa fa-home fa-fw" aria-hidden="true"></i>
                             </span>
-                        {{/iscomplete}}
-                        {{^iscomplete}}
-                            {{#issection0}}
-                                <span class="pathway-home-icon">
-                                    <i class="icon fa fa-home fa-fw" aria-hidden="true"></i>
-                                </span>
-                            {{/issection0}}
-                            {{^issection0}}
-                                <span class="pathway-section-num">{{num}}</span>
-                            {{/issection0}}
-                        {{/iscomplete}}
-                    {{/hasimage}}
+                        {{/issection0}}
+                        {{^issection0}}
+                            <span class="pathway-section-num">{{num}}</span>
+                        {{/issection0}}
+                    {{/iscomplete}}
                 </div>
 
                 {{! Section info }}
